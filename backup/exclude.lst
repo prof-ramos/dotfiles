@@ -1,0 +1,27 @@
+# Lista de exclusão (rsync) relativa a $HOME
+
+# Segurança: chaves privadas e materiais sensíveis
+.ssh/id_*
+.ssh/*_key
+.ssh/*.pub
+.gnupg/**
+
+# Caches e temporários
+Library/Caches/**
+Library/Cache/**
+Library/Logs/**
+Library/Application Support/Code/Cache/**
+Library/Application Support/Code/CacheData/**
+Library/Application Support/Code/CachedData/**
+Library/Application Support/Google/**
+Library/Application Support/Slack/**
+.config/**/Cache/**
+.cache/**
+**/*.log
+**/*.tmp
+
+# Cloud/Volumes
+Library/CloudStorage/**
+Volumes/**
+
+
