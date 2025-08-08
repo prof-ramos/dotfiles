@@ -1,0 +1,8 @@
+---
+alwaysApply: true
+---
+# Preferências Operacionais
+
+- Responder, documentar e nomear mensagens em PT-BR
+- Preferir caminhos absolutos em execuções/comandos e referências internas
+- Usar flags não interativas por padrão em automações (ex.: `--yes`, `--force` quando seguro)

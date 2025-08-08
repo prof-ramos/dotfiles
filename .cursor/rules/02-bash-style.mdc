@@ -1,0 +1,13 @@
+---
+globs: *.sh
+---
+# Estilo e Padrões para Scripts Bash
+
+- Sempre iniciar com `#!/usr/bin/env bash` e `set -euo pipefail`
+- Usar funções com nomes descritivos; preferir retornos antecipados (early return)
+- Declarar variáveis internas como `local`; constantes em CAIXA_ALTA
+- Padronizar logs com funções `info`, `warn`, `die`
+- Para cópias, usar `rsync -aHAX --relative` com exclusões definidas em array
+- Formatar comandos longos com arrays e quebras de linha para legibilidade
+- Evitar comentários inline desnecessários; escrever código autoexplicativo
+- Não imprimir segredos ou caminhos sensíveis nos logs

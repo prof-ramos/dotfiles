@@ -1,0 +1,21 @@
+---
+alwaysApply: true
+---
+# Guia do Projeto (dotfiles)
+
+- Principal script de backup: [dotfiles_backup.sh](mdc:dotfiles_backup.sh)
+- SO alvo: macOS (zsh)
+- Destino fixo dos backups: `/Users/gabrielramos/dotfiles`
+- Nome do tarball: `dotfiles-${HOSTNAME}-${TIMESTAMP}.tar.gz`
+- Exportações adicionais:
+  - Brewfile via `brew bundle dump`
+  - Extensões do VS Code via `code --list-extensions`
+  - Manifestos: `manifest.sha256` e `inventory.txt`
+- Itens sensíveis são excluídos do backup (ex.: chaves privadas de SSH)
+
+Fluxo do script de backup:
+
+1. Copia itens de interesse com `rsync` e exclusões predefinidas
+2. Gera manifestos e metadados
+3. Empacota em tarball no diretório do projeto
+4. (Opcional) Faz commit e push do tarball para `origin` no branch atual

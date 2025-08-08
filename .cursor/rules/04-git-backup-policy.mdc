@@ -1,0 +1,9 @@
+---
+alwaysApply: true
+---
+# Política de Git para Backups
+
+- O tarball gerado pelo [dotfiles_backup.sh](mdc:dotfiles_backup.sh) é adicionado ao Git quando `DO_GIT=1`
+- Mensagem de commit: `backup ${HOSTNAME} ${TIMESTAMP}`
+- O push é feito para o remoto `origin` no branch atual; é necessário que o repositório e o remoto existam
+- Em `DRY_RUN=1`, apenas logar as ações (não criar tarball nem fazer push)
