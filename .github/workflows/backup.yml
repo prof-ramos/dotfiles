@@ -1,0 +1,37 @@
+name: Dotfiles Backup
+
+on:
+  schedule:
+    - cron: '0 5 * * *' # 05:00 UTC diariamente
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Executar backup (CI)
+        env:
+          PROJECT_DIR: ${{ github.workspace }}
+          DO_GIT: "1"
+          DRY_RUN: "0"
+          SKIP_HOME: "1"
+          SKIP_BREW: "1"
+          SKIP_VSCODE: "1"
+        run: |
+          chmod +x scripts/dotfiles_backup.sh || true
+          /bin/zsh scripts/dotfiles_backup.sh
+
+

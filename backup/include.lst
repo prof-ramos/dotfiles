@@ -1,0 +1,30 @@
+# Lista de inclusão (rsync) relativa a $HOME
+# Mantenha entradas específicas e diretórios com barra no final
+
+# Shell & Git
+.zshrc
+.zprofile
+.zshenv
+.bash_profile
+.bashrc
+.gitconfig
+.gitignore_global
+
+# Configurações gerais
+.editorconfig
+.aliases
+.exports
+
+# Diretórios de configuração
+.config/
+.ssh/
+
+# VS Code settings (macOS)
+Library/Application Support/Code/User/settings.json
+Library/Application Support/Code/User/keybindings.json
+Library/Application Support/Code/User/snippets/
+
+# iTerm2 (exemplo)
+Library/Preferences/com.googlecode.iterm2.plist
+
+
