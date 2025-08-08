@@ -1,0 +1,9 @@
+---
+alwaysApply: true
+---
+# Segurança e Privacidade
+
+- Nunca incluir tokens, senhas ou chaves privadas em código, logs ou commits
+- Excluir chaves privadas do backup: `${HOME}/.ssh/id_*` e `${HOME}/.ssh/*_key`
+- Validar o que entra no Git antes de commitar arquivos gerados
+- Preferir uso de variáveis de ambiente/Keychain no macOS para segredos
