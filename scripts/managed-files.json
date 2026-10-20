@@ -83,5 +83,10 @@
     "package": "sublime",
     "source": "Library/Application Support/Sublime Text/Packages/User/Package Control.sublime-settings",
     "target": "Library/Application Support/Sublime Text/Packages/User/Package Control.sublime-settings"
+  },
+  {
+    "package": "sublime",
+    "source": "Library/Application Support/Sublime Text/Packages/User/compact_layout.py",
+    "target": "Library/Application Support/Sublime Text/Packages/User/compact_layout.py"
   }
 ]

@@ -1,0 +1,72 @@
+[
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleInterfaceStyle",
+    "value": "Dark"
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleKeyboardUIMode",
+    "value": 0
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSAutomaticCapitalizationEnabled",
+    "value": true
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "ShowPathbar",
+    "value": true
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "FXPreferredViewStyle",
+    "value": "Nlsv"
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "tilesize",
+    "value": 68.0
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "show-recents",
+    "value": false
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "mru-spaces",
+    "value": false
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "wvous-br-corner",
+    "value": 14
+  },
+  {
+    "domain": "com.apple.AppleMultitouchTrackpad",
+    "key": "Clicking",
+    "value": 0
+  },
+  {
+    "domain": "com.apple.AppleMultitouchTrackpad",
+    "key": "TrackpadThreeFingerDrag",
+    "value": false
+  },
+  {
+    "domain": "com.apple.desktopservices",
+    "key": "DSDontWriteNetworkStores",
+    "value": true
+  },
+  {
+    "domain": "com.apple.desktopservices",
+    "key": "DSDontWriteUSBStores",
+    "value": true
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "persistent-apps",
+    "value": []
+  }
+]

@@ -51,6 +51,7 @@
   "sublime/Library/Application Support/Sublime Text/Packages/User/Preferences.sublime-settings",
   "sublime/Library/Application Support/Sublime Text/Packages/User/XML.sublime-settings",
   "sublime/Library/Application Support/Sublime Text/Packages/User/codex_chat_appearance.py",
+  "sublime/Library/Application Support/Sublime Text/Packages/User/compact_layout.py",
   "tests/test_bootstrap.py",
   "tests/test_default_apps.py",
   "tests/test_folder_icons.py",

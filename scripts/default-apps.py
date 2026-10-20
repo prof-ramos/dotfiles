@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""Set declared text extensions to Sublime; preserve previous handlers."""
+import argparse,json,subprocess,sys,uuid
+from pathlib import Path
+from state import private_dir,write_json
+ROOT=Path(__file__).resolve().parents[1]
+BUNDLE='com.sublimetext.4'
+class MemoryHandlers:
+ def __init__(self,values):self.values=values.copy()
+ def get(self,ext):return self.values.get(ext)
+ def set(self,ext,bundle):self.values[ext]=bundle
+class DutiHandlers:
+ def get(self,ext):
+  r=subprocess.run(['duti','-x',ext],capture_output=True,text=True)
+  lines=r.stdout.strip().splitlines()
+  return lines[-1] if r.returncode==0 and len(lines)>=3 else None
+ def set(self,ext,bundle):subprocess.run(['duti','-s',bundle,'.'+ext,'all'],check=True)
+
+def apply_handlers(extensions,backend,state_dir,dry=False):
+ records=[]
+ for ext in extensions:
+  if not ext.isalnum():raise ValueError('Invalid extension')
+  old=backend.get(ext)
+  if not old:raise ValueError('No recoverable current handler for .'+ext)
+  if old!=BUNDLE:records.append({'extension':ext,'before':old,'after':BUNDLE,'status':'prepared'})
+ if dry:print('Default-app changes:',len(records));return None
+ run=private_dir(Path(state_dir)/('apps-'+uuid.uuid4().hex));journal=run/'apps.json';write_json(journal,records)
+ for item in records:
+  backend.set(item['extension'],BUNDLE);item['status']='applied';write_json(journal,records)
+ print('Default apps journal:',journal);return journal
+
+def restore_handlers(journal,backend):
+ journal=Path(journal);records=json.loads(journal.read_text())
+ for item in reversed(records):
+  now=backend.get(item['extension'])
+  if now==item['before']:continue
+  if now!=item['after']:raise ValueError('Handler changed after application')
+  backend.set(item['extension'],item['before']);item['status']='restored';write_json(journal,records)
+
+def main():
+ p=argparse.ArgumentParser();p.add_argument('action',choices=['diff','apply','restore']);p.add_argument('--journal',type=Path);a=p.parse_args();b=DutiHandlers()
+ if a.action=='restore':
+  if not a.journal:p.error('--journal required')
+  restore_handlers(a.journal,b)
+ else:apply_handlers(json.loads((ROOT/'macos/default-apps.json').read_text()),b,Path.home()/'Library/Application Support/dotfiles/backups',dry=a.action=='diff')
+if __name__=='__main__':
+ try:main()
+ except (OSError,ValueError,subprocess.CalledProcessError) as e:print(e,file=sys.stderr);sys.exit(1)
