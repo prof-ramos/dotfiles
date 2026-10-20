@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Set declared text extensions to Sublime; preserve previous handlers."""
-import argparse,json,subprocess,sys,uuid
+import argparse,json,subprocess,sys,time,uuid
 from pathlib import Path
 from state import private_dir,write_json
 ROOT=Path(__file__).resolve().parents[1]
@@ -14,7 +14,13 @@ class DutiHandlers:
   r=subprocess.run(['duti','-x',ext],capture_output=True,text=True)
   lines=r.stdout.strip().splitlines()
   return lines[-1] if r.returncode==0 and len(lines)>=3 else None
- def set(self,ext,bundle):subprocess.run(['duti','-s',bundle,'.'+ext,'all'],check=True)
+ def set(self,ext,bundle):
+  subprocess.run(['duti','-s',bundle,'.'+ext,'all'],check=True)
+  # Launch Services publishes the new mapping asynchronously.
+  for attempt in range(30):
+   if self.get(ext)==bundle:return
+   time.sleep(0.1)
+  raise RuntimeError('Launch Services did not confirm handler for .'+ext)
 
 def apply_handlers(extensions,backend,state_dir,dry=False):
  records=[]
@@ -45,4 +51,4 @@ def main():
  else:apply_handlers(json.loads((ROOT/'macos/default-apps.json').read_text()),b,Path.home()/'Library/Application Support/dotfiles/backups',dry=a.action=='diff')
 if __name__=='__main__':
  try:main()
- except (OSError,ValueError,subprocess.CalledProcessError) as e:print(e,file=sys.stderr);sys.exit(1)
+ except (OSError,ValueError,RuntimeError,subprocess.CalledProcessError) as e:print(e,file=sys.stderr);sys.exit(1)

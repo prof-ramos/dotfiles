@@ -14,3 +14,10 @@ class AppTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as td:
    with self.assertRaises(ValueError):a.apply_handlers(['txt','unknown'],b,Path(td).resolve())
   self.assertEqual(b.get('txt'),'old.bundle')
+ def test_duti_reports_unapplied_change(self):
+  from unittest.mock import patch
+  import subprocess
+  a=self.api()
+  def run(args,**kwargs):return subprocess.CompletedProcess(args,0,stdout='Old App\n/Applications/Old.app\nold.bundle\n')
+  with patch.object(a.subprocess,'run',side_effect=run),patch('time.sleep'):
+   with self.assertRaises(RuntimeError):a.DutiHandlers().set('txt','com.sublimetext.4')
