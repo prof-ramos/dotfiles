@@ -18,3 +18,15 @@ class PrefTests(unittest.TestCase):
   a=self.api();b=a.MemoryBackend({})
   with tempfile.TemporaryDirectory() as td:
    a.apply_preferences([{'domain':'test','key':'k','value':3}],b,Path(td).resolve(),dry=True);self.assertEqual(b.values,{});self.assertEqual(list(Path(td).iterdir()),[])
+ def test_production_backend_restores_nonempty_dock_array(self):
+  import uuid
+  a=self.api();b=a.DefaultsBackend();domain='org.dotfiles.test.'+uuid.uuid4().hex
+  previous=[{'tile-data':{'file-label':'Example','file-data':{'_CFURLString':'file:///Applications/Example.app/'}}}]
+  try:
+   b.set(domain,'persistent-apps',previous)
+   with tempfile.TemporaryDirectory() as td:
+    j=a.apply_preferences([{'domain':domain,'key':'persistent-apps','value':[]}],b,Path(td).resolve());a.restore_preferences(j,b)
+   self.assertEqual(b.get(domain,'persistent-apps'),(True,previous))
+  finally:
+   import subprocess
+   subprocess.run(['defaults','delete',domain],capture_output=True)

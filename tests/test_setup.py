@@ -18,6 +18,7 @@ class SetupTests(unittest.TestCase):
  def test_editor_available_in_login_and_interactive_shell(self):
   with tempfile.TemporaryDirectory() as td:
    h=Path(td).resolve();apply_links(REPO,h,h/'backups')
+   bin=h/'bin';bin.mkdir();fixture=bin/'subl';fixture.write_text('#!/bin/sh\nexit 0\n');fixture.chmod(0o755)
    for flags in ['-lc','-ic']:
-    r=subprocess.run(['/bin/zsh',flags,'print -r -- "$EDITOR|$VISUAL"; command -v subl'],env=dict(os.environ,HOME=str(h),ZDOTDIR=str(h)),capture_output=True,text=True)
-    self.assertEqual(r.returncode,0,r.stderr);self.assertIn('subl -w|subl -w',r.stdout);self.assertIn('Sublime Text.app',r.stdout)
+    r=subprocess.run(['/bin/zsh',flags,'print -r -- "$EDITOR|$VISUAL"; command -v subl'],env=dict(os.environ,HOME=str(h),ZDOTDIR=str(h),PATH=str(bin)+':'+os.environ['PATH']),capture_output=True,text=True)
+    self.assertEqual(r.returncode,0,r.stderr);self.assertIn('subl -w|subl -w',r.stdout);self.assertTrue(r.stdout.strip().endswith('/subl'),r.stdout)

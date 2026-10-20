@@ -12,6 +12,21 @@ ZSH_DEPS_LOCK="$SCRIPT_DIR/zsh-deps.lock"
 ZSH_DIR="$HOME/.oh-my-zsh"
 ZSH_CUSTOM="$ZSH_DIR/custom"
 
+# Refuse symlinked roots/custom paths before creating any directories.
+assert_real_ancestry() {
+  local candidate="$1"
+  while [[ "$candidate" != / ]]; do
+    if [[ -L "$candidate" ]]; then
+      print -u2 "Symlink in shell dependency path: $candidate"
+      return 1
+    fi
+    candidate="${candidate:h}"
+  done
+}
+for dependency_target in "$ZSH_DIR" "$ZSH_CUSTOM/themes/powerlevel10k" "$ZSH_CUSTOM/plugins/you-should-use"; do
+  assert_real_ancestry "$dependency_target"
+done
+
 lookup_locked_sha() {
   local repository="$1"
   local repo sha

@@ -1,11 +1,13 @@
 import AppKit
 import Foundation
+import CryptoKit
 
 struct Mapping: Codable { let folder: String; let icon: String }
 struct Record: Codable {
     let folder: String
     let hadCustom: Bool
     let backup: String?
+    let beforeResource: String
     var expectedResource: String?
     var applied: Bool
 }
@@ -21,6 +23,33 @@ func xattr(_ key: String,_ file: URL) throws -> String? {
     try p.run();let bytes=out.fileHandleForReading.readDataToEndOfFile();p.waitUntilExit()
     if p.terminationStatus != 0 { return nil }
     return String(decoding:bytes,as:UTF8.self).filter { !$0.isWhitespace }
+}
+func iconState(_ folder: URL) throws -> String {
+    let finder=try xattr("com.apple.FinderInfo",folder) ?? ""
+    let chars=Array(finder)
+    let flags=chars.count >= 20 ? UInt16(String(chars[16..<20]),radix:16) ?? 0 : 0
+    let custom=(flags & 0x0400) != 0
+    let file=folder.appendingPathComponent("Icon\r")
+    let resource=try xattr("com.apple.ResourceFork",file) ?? ""
+    let data=(try? Data(contentsOf:file)) ?? Data()
+    let hex=Array(resource)
+    var bytes=[UInt8]()
+    if hex.count % 2 != 0 { throw Failure("Malformed icon resource") }
+    for i in stride(from:0,to:hex.count,by:2) {
+        guard let byte=UInt8(String(hex[i...i+1]),radix:16) else { throw Failure("Malformed icon resource") }
+        bytes.append(byte)
+    }
+    var digest=SHA256()
+    if !bytes.isEmpty {
+        guard bytes.count >= 16 else { throw Failure("Short resource header") }
+        func word(_ start:Int)->Int { bytes[start..<start+4].reduce(0){($0 << 8) | Int($1)} }
+        let offset=word(0);let length=word(8)
+        guard offset <= bytes.count, length <= bytes.count-offset else { throw Failure("Invalid resource bounds") }
+        // Resource-map runtime handles differ between folders; icon payload is stable.
+        digest.update(data:Data(bytes[offset..<offset+length]))
+    }
+    digest.update(data:data)
+    return "\(custom):"+digest.finalize().map{String(format:"%02x",$0)}.joined()
 }
 func safe(_ relative: String,_ root: URL) throws -> URL {
     if relative.isEmpty || relative.hasPrefix("/") || relative.split(separator:"/").contains("..") { throw Failure("Unsafe relative path") }
@@ -43,8 +72,9 @@ func run() throws {
         var records=try JSONDecoder().decode([Record].self,from:Data(contentsOf:journal))
         for i in records.indices.reversed() {
             let r=records[i];let folder=URL(fileURLWithPath:r.folder)
-            guard r.applied else { continue }
-            if try xattr("com.apple.ResourceFork",folder) != r.expectedResource { throw Failure("Icon changed after application") }
+            let current=try iconState(folder)
+            if !r.applied && current == r.beforeResource { continue }
+            if current != r.expectedResource { throw Failure("Icon changed after application") }
             let image: NSImage?
             if r.hadCustom { guard let backup=r.backup, let old=NSImage(contentsOfFile:backup) else { throw Failure("Missing icon backup") };image=old } else { image=nil }
             guard NSWorkspace.shared.setIcon(image,forFile:folder.path,options:[]) else { throw Failure("Cannot restore icon") }
@@ -85,10 +115,17 @@ func run() throws {
             guard let data=NSWorkspace.shared.icon(forFile:folder.path).tiffRepresentation else { throw Failure("Cannot back up custom icon") }
             let dst=state.appendingPathComponent(UUID().uuidString+".tiff");try data.write(to:dst);try fm.setAttributes([.posixPermissions:0o600],ofItemAtPath:dst.path);backup=dst.path
         }
-        records.append(Record(folder:folder.path,hadCustom:custom,backup:backup,expectedResource:nil,applied:false));try save(records,journal)
+        let before=try iconState(folder)
+        // Precompute intended state in a private staging folder, so recovery
+        // works even if the process stops immediately after setIcon succeeds.
+        let staging=state.appendingPathComponent("staging-"+UUID().uuidString)
+        try fm.createDirectory(at:staging,withIntermediateDirectories:false)
+        guard NSWorkspace.shared.setIcon(image,forFile:staging.path,options:[]) else { throw Failure("Cannot stage icon") }
+        let intended=try iconState(staging)
+        records.append(Record(folder:folder.path,hadCustom:custom,backup:backup,beforeResource:before,expectedResource:intended,applied:false));try save(records,journal)
         try fm.createDirectory(at:folder,withIntermediateDirectories:true)
         guard NSWorkspace.shared.setIcon(image,forFile:folder.path,options:[]) else { throw Failure("Cannot apply icon") }
-        records[records.count-1].expectedResource=try xattr("com.apple.ResourceFork",folder)
+        if try iconState(folder) != intended { throw Failure("Applied icon differs from staged recovery state") }
         records[records.count-1].applied=true;try save(records,journal)
         print("Icon applied: \(folder.path)")
     }

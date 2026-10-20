@@ -7,9 +7,13 @@ ROOT=Path(__file__).resolve().parents[1]
 def validate_public(repo:Path)->list[str]:
     allow=set(json.loads((ROOT/'scripts/public-files.json').read_text()))
     errors=[]
-    for path in repo.rglob('*'):
+    listing=subprocess.run(['git','-C',str(repo),'ls-files','-z','--cached','--others','--exclude-standard'],capture_output=True)
+    if listing.returncode==0:
+        paths=[repo/name for name in listing.stdout.decode().split('\0') if name]
+    else:
+        paths=[p for p in repo.rglob('*') if '.git' not in p.relative_to(repo).parts]
+    for path in paths:
         rel=path.relative_to(repo).as_posix()
-        if any(p in ('.git','.superpowers','__pycache__') for p in path.relative_to(repo).parts):continue
         if path.is_symlink():errors.append('Symlink source forbidden: '+rel);continue
         if not path.is_file():continue
         if rel not in allow:errors.append('Unreviewed file: '+rel)

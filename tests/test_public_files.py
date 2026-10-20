@@ -22,3 +22,10 @@ class PublicFilesTests(unittest.TestCase):
  def test_secret_content_rejected_without_echo(self):
   errors=self.validate('.aliases','-----BEGIN '+'OPENSSH PRIVATE KEY-----\nSYNTHETIC\n')
   self.assertTrue(errors);self.assertNotIn('SYNTHETIC',str(errors))
+ def test_force_tracked_ignored_secret_is_rejected(self):
+  import subprocess
+  with tempfile.TemporaryDirectory() as td:
+   root=Path(td);subprocess.run(['git','init',str(root)],capture_output=True,check=True)
+   p=root/'.superpowers/auth.json';p.parent.mkdir();p.write_text('private fixture')
+   subprocess.run(['git','-C',str(root),'add','-f','.superpowers/auth.json'],check=True)
+   self.assertTrue(importlib.import_module('validate').validate_public(root))

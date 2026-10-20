@@ -18,7 +18,7 @@ class DefaultsBackend:
   elif isinstance(value,int):args=['-int',str(value)]
   elif isinstance(value,float):args=['-float',str(value)]
   elif isinstance(value,str):args=['-string',value]
-  elif value==[]:args=['-array']
+  elif isinstance(value,(list,dict)):args=[plistlib.dumps(value,fmt=plistlib.FMT_XML).decode()]
   else:raise ValueError('Unsupported defaults value')
   subprocess.run(['defaults','write',domain,key,*args],check=True)
  def delete(self,domain,key):

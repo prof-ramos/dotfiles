@@ -58,5 +58,6 @@
   "tests/test_links.py",
   "tests/test_macos_preferences.py",
   "tests/test_public_files.py",
-  "tests/test_setup.py"
+  "tests/test_setup.py",
+  "tests/test_shell_deps.py"
 ]
