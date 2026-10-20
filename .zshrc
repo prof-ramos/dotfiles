@@ -5,7 +5,10 @@ if [[ -z ${HOMEBREW_PREFIX:-} ]]; then
  if [[ -x /opt/homebrew/bin/brew ]]; then eval "$(/opt/homebrew/bin/brew shellenv)";
  elif [[ -x /usr/local/bin/brew ]]; then eval "$(/usr/local/bin/brew shellenv)"; fi
 fi
-source "$HOME/.exports"
+if [[ -z ${_DOTFILES_EXPORTS_LOADED:-} ]]; then
+ source "$HOME/.exports"
+ _DOTFILES_EXPORTS_LOADED=1
+fi
 typeset -U path PATH fpath FPATH cdpath
 [[ -t 1 && -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 ZSH_THEME=''
