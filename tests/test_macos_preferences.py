@@ -21,7 +21,7 @@ class PrefTests(unittest.TestCase):
  def test_production_backend_restores_nonempty_dock_array(self):
   import uuid
   a=self.api();b=a.DefaultsBackend();domain='org.dotfiles.test.'+uuid.uuid4().hex
-  previous=[{'tile-data':{'file-label':'Example','file-data':{'_CFURLString':'file:///Applications/Example.app/'}}}]
+  previous=[{'tile-data':{'book':b'synthetic-bookmark','file-label':'Example','file-data':{'_CFURLString':'file:///Applications/Example.app/'}}}]
   try:
    b.set(domain,'persistent-apps',previous)
    with tempfile.TemporaryDirectory() as td:

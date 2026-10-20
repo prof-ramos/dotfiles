@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse,json,plistlib,subprocess,sys,uuid
+import argparse,base64,json,plistlib,subprocess,sys,uuid
 from pathlib import Path
 from state import private_dir,write_json
 ROOT=Path(__file__).resolve().parents[1]
@@ -28,7 +28,7 @@ def apply_preferences(items,backend,state_dir,dry=False):
  changes=[]
  for item in items:
   exists,value=backend.get(item['domain'],item['key'])
-  if not exists or value!=item['value']:changes.append(dict(item,existed=exists,previous=value,status='prepared'))
+  if not exists or value!=item['value']:changes.append(dict(item,existed=exists,previous_plist=base64.b64encode(plistlib.dumps(value)).decode() if exists else None,status='prepared'))
  if dry:
   print('Preference changes:',len(changes));return None
  run=private_dir(Path(state_dir)/('preferences-'+uuid.uuid4().hex));journal=run/'preferences.json';write_json(journal,changes)
@@ -40,9 +40,10 @@ def restore_preferences(journal,backend):
  journal=Path(journal);items=json.loads(journal.read_text())
  for item in reversed(items):
   now=backend.get(item['domain'],item['key'])
-  if now==(item['existed'],item['previous']):continue
+  previous=plistlib.loads(base64.b64decode(item['previous_plist'])) if item['existed'] else None
+  if now==(item['existed'],previous):continue
   if now!=(True,item['value']):raise ValueError('Preference changed after application')
-  if item['existed']:backend.set(item['domain'],item['key'],item['previous'])
+  if item['existed']:backend.set(item['domain'],item['key'],previous)
   else:backend.delete(item['domain'],item['key'])
   item['status']='restored';write_json(journal,items)
 
