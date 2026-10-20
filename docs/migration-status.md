@@ -54,3 +54,11 @@ de Launch Services não são preservadas individualmente pelo backup de app padr
 - Task 6: Ruling: retain SideBarEnhancements in Package Control manifest — prior private backup proved it was installed before migration — cost if wrong: one additional editor extension restored.
 
 Nenhum achado menor foi adiado; o problema de CI foi reclassificado e corrigido.
+
+## Conferência posterior de preferências
+
+Após reiniciar o Dock, o tamanho lido foi 52 e a posição à direita; o perfil
+capturado ainda declara 68. A divergência não foi sobrescrita: a nova solicitação
+do usuário é avaliar ajustes do Mathias, antes de escolher o próximo perfil.
+A comparação está em docs/research/macos-mathias-applicability.md.
+O CI do commit de conclusão passou: https://github.com/prof-ramos/dotfiles/actions/runs/39364296143.
