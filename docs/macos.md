@@ -22,3 +22,10 @@ anterior por extensão; não captura distinções avançadas de roles do Launch 
 Lista inicial: md, markdown, csv, txt, json, xml, yaml, yml, toml e log.
 O usuário pode editar a lista versionada. EDITOR/VISUAL também usam `subl -w`.
 A verificação em Mac recém-formatado ainda está pendente.
+
+`diff` identifica cada chave e seus valores atuais/propostos, resumindo estruturas
+binárias. `verify` retorna erro se houver diferenças; `verify --reload` reinicia
+o Dock antes de conferir. `apply` verifica as escritas e recarrega o Dock quando
+modifica esse domínio, guardando o journal antes de qualquer alteração.
+`python3 scripts/doctor.py` reúne preferências, links, apps e ferramentas em uma
+consulta de leitura. O preview do bootstrap também mostra esses destinos.

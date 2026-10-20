@@ -30,3 +30,16 @@ A configuração do Package Control declara Codex; no Mac novo, instalar Package
 pela paleta do Sublime. A instalação de apps não efetua login automaticamente.
 
 Registro da aplicação neste Mac: [migração concluída](docs/migration-status.md).
+
+Checks locais e do CI: `./scripts/check.sh` (adicione `--history` para o histórico).
+Ative os hooks uma vez: `./scripts/install-hooks.sh`. O commit verifica o índice,
+e o push verifica também o histórico. Pré-requisitos adicionais: Stow e Gitleaks;
+o Brewfile do núcleo instala ambos. Logs ficam em ~/.local/state/dotfiles/checks/.
+
+Diagnóstico sem alterações: `python3 scripts/doctor.py` (`--json` para automação).
+Diferenças retornam código 1 para serem revisadas, não são corrigidas automaticamente.
+`python3 scripts/macos-preferences.py verify --reload` recarrega o Dock e verifica
+persistência; `apply` também recarrega o Dock quando modifica suas preferências.
+
+Workspace: `./scripts/workspace.sh sublime` ou `./scripts/workspace.sh codex`.
+Instalação de skills com dependências: veja [fluxo de agentes](docs/agents/workflow.md).

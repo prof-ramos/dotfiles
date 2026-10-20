@@ -1,5 +1,6 @@
 brew "git"
 brew "gh"
+brew "gitleaks"
 brew "stow"
 brew "python"
 brew "autojump"

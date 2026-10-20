@@ -19,12 +19,9 @@ case $stage in apps|shell|macos|visual|all) ;; *) usage >&2; exit 2;; esac
 stages=($stage)
 [[ $stage == all ]] && stages=(apps shell macos visual)
 if (( dry )); then
- for s in $stages; do print "Plano: $s"; done
- if [[ $stage == apps || $stage == all ]]; then
-  print "Brewfile: $ROOT/Brewfile"
-  for m in $selected_modules; do print "Brewfile: $ROOT/modules/$m/Brewfile"; done
- fi
- exit 0
+ preview_args=(--stage "$stage" --target "$HOME")
+ for m in $selected_modules; do preview_args+=(--module "$m"); done
+ exec python3 "$ROOT/scripts/preview.py" $preview_args
 fi
 [[ $(uname -s) == Darwin ]] || { print -u2 'Apenas macOS'; exit 1; }
 for s in $stages; do

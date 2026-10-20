@@ -7,10 +7,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - run: brew install stow
-      - run: python3 scripts/validate.py
-      - run: python3 -m unittest discover -s tests -v
-      - run: |
-          for file in bootstrap.sh scripts/*.sh .zshrc .zprofile .zshenv .aliases .functions .exports .p10k.zsh; do
-            zsh -n "$file" || exit 1
-          done
+        with:
+          fetch-depth: 0
+      - run: brew install stow gitleaks
+      - run: ./scripts/check.sh --history
