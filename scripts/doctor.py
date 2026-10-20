@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Read-only environment and drift report; never installs or reloads apps."""
 import argparse,json,shutil,subprocess,sys
+sys.dont_write_bytecode = True
 from pathlib import Path
 from preview import ROOT,build_plan,format_plan,load
 

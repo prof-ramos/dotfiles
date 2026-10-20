@@ -4,12 +4,16 @@ import argparse,os,shutil,subprocess,sys,tempfile,uuid
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
+def clean_git_environment():
+    names=subprocess.check_output(['git','rev-parse','--local-env-vars'],text=True).splitlines()
+    return {key:value for key,value in os.environ.items() if key not in names}
+
 def run_steps(steps,cwd,log_dir):
     log_dir.mkdir(parents=True,exist_ok=True,mode=0o700)
     for index,(name,command) in enumerate(steps):
         log=log_dir/f'{index:02d}-{name}.log'
         with log.open('w') as output:
-            result=subprocess.run(command,cwd=cwd,stdout=output,stderr=subprocess.STDOUT)
+            result=subprocess.run(command,cwd=cwd,stdout=output,stderr=subprocess.STDOUT,env=clean_git_environment())
         log.chmod(0o600)
         print(f'{name}: {"OK" if result.returncode==0 else "FAIL"}',flush=True)
         if result.returncode:
@@ -25,7 +29,7 @@ def check_staged(repo):
         subprocess.run(['git','-C',str(repo),'checkout-index','--all','--prefix',str(snapshot)+os.sep],check=True)
         checker=snapshot/'scripts/check.py'
         if not checker.is_file():raise ValueError('Stage scripts/check.py before enabling the commit hook')
-        return subprocess.run([sys.executable,str(checker)],cwd=snapshot).returncode
+        return subprocess.run([sys.executable,str(checker)],cwd=snapshot,env=clean_git_environment()).returncode
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--staged',action='store_true');parser.add_argument('--history',action='store_true');args=parser.parse_args()

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Read-only plan shared by bootstrap and doctor."""
 import argparse,importlib.util,json,shutil,sys
+sys.dont_write_bytecode = True
 from pathlib import Path
 from links import plan_links
 ROOT=Path(__file__).resolve().parents[1]

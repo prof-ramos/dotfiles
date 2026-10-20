@@ -31,3 +31,11 @@ class DiagnosticTests(unittest.TestCase):
   a=load('macos-preferences');backend=a.MemoryBackend({('test','k'):True})
   with tempfile.TemporaryDirectory() as td:a.apply_preferences([{'domain':'test','key':'k','value':1}],backend,Path(td).resolve())
   self.assertIs(type(backend.get('test','k')[1]),int)
+
+ def test_scalar_type_changes_restore_original_type(self):
+  a=load('macos-preferences')
+  for before,after in [(True,1),(1,1.0),(1.0,True)]:
+   with self.subTest(before=type(before),after=type(after)),tempfile.TemporaryDirectory() as td:
+    backend=a.MemoryBackend({('test','k'):before});journal=a.apply_preferences([{'domain':'test','key':'k','value':after}],backend,Path(td).resolve())
+    a.restore_preferences(journal,backend)
+    self.assertIs(type(backend.get('test','k')[1]),type(before))

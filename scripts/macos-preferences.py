@@ -74,8 +74,8 @@ def restore_preferences(journal,backend):
  for item in reversed(items):
   now=backend.get(item['domain'],item['key'])
   previous=plistlib.loads(base64.b64decode(item['previous_plist'])) if item['existed'] else None
-  if now==(item['existed'],previous):continue
-  if now!=(True,item['value']):raise ValueError('Preference changed after application')
+  if now[0]==item['existed'] and (not now[0] or (type(now[1]) is type(previous) and now[1]==previous)):continue
+  if not now[0] or type(now[1]) is not type(item['value']) or now[1]!=item['value']:raise ValueError('Preference changed after application')
   if item['existed']:backend.set(item['domain'],item['key'],previous)
   else:backend.delete(item['domain'],item['key'])
   item['status']='restored';write_json(journal,items)

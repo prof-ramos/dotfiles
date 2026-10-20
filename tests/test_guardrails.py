@@ -52,3 +52,28 @@ class GuardrailsTests(unittest.TestCase):
    subprocess.run(['git','-C',str(root),'config','core.hooksPath','existing-hooks'],check=True)
    r=subprocess.run(['/bin/zsh','-f',str(root/'scripts/install-hooks.sh')],capture_output=True)
    self.assertNotEqual(r.returncode,0);self.assertEqual(subprocess.check_output(['git','-C',str(root),'config','core.hooksPath'],text=True).strip(),'existing-hooks')
+
+ def test_staged_checker_clears_repository_environment(self):
+  from unittest.mock import patch
+  with tempfile.TemporaryDirectory() as td:
+   root=Path(td).resolve();subprocess.run(['git','init',str(root)],capture_output=True,check=True);(root/'scripts').mkdir()
+   (root/'scripts/check.py').write_text('import os\nraise SystemExit(8 if any(k in os.environ for k in ["GIT_DIR","GIT_INDEX_FILE","GIT_WORK_TREE"]) else 0)\n')
+   subprocess.run(['git','-C',str(root),'add','.'],check=True)
+   with patch.dict(os.environ,{'GIT_DIR':str(root/'.git'),'GIT_INDEX_FILE':str(root/'.git/index'),'GIT_WORK_TREE':str(root)}):
+    self.assertEqual(module('check').check_staged(root),0)
+ def test_steps_clear_repository_environment(self):
+  from unittest.mock import patch
+  with tempfile.TemporaryDirectory() as td:
+   root=Path(td).resolve()
+   with patch.dict(os.environ,{'GIT_DIR':'/invalid','GIT_INDEX_FILE':'/invalid'}):
+    result=module('check').run_steps([('env',[sys.executable,'-c','import os;raise SystemExit(8 if "GIT_DIR" in os.environ or "GIT_INDEX_FILE" in os.environ else 0)'])],root,root/'logs')
+   self.assertEqual(result,0)
+
+ def test_hooks_installer_preserves_global_hooks(self):
+  import shutil
+  with tempfile.TemporaryDirectory() as td:
+   root=Path(td).resolve();subprocess.run(['git','init',str(root)],capture_output=True,check=True);(root/'scripts').mkdir();shutil.copy2(ROOT/'scripts/install-hooks.sh',root/'scripts/install-hooks.sh')
+   config=root/'global-config';config.write_text('[core]\n hooksPath = global-hooks\n');env=dict(os.environ,GIT_CONFIG_GLOBAL=str(config))
+   result=subprocess.run(['/bin/zsh','-f',str(root/'scripts/install-hooks.sh')],env=env,capture_output=True)
+   self.assertNotEqual(result.returncode,0)
+   self.assertEqual(subprocess.check_output(['git','-C',str(root),'config','--get','core.hooksPath'],env=env,text=True).strip(),'global-hooks')
