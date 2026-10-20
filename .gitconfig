@@ -1,0 +1,6 @@
+[core]
+    editor = subl -w
+[init]
+    defaultBranch = main
+[include]
+    path = ~/.gitconfig.local

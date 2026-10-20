@@ -1,0 +1,1 @@
+^/(?!\.zshrc$|\.zprofile$|\.zshenv$|\.aliases$|\.functions$|\.exports$|\.gitconfig$|\.p10k\.zsh$).*

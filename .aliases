@@ -1,0 +1,7 @@
+alias ll='ls -lah'
+alias la='ls -A'
+alias cls='clear'
+alias reload='exec zsh'
+alias reload-zsh='exec zsh'
+alias brewup='brew update && brew upgrade && brew cleanup'
+alias brewfix='brew update-reset && brew doctor'

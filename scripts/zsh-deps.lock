@@ -1,0 +1,5 @@
+# Pinned Zsh shell dependencies. Format: <repo> <sha>
+# Bump: replace the SHA, remove the local clone, rerun ./scripts/bootstrap.sh
+https://github.com/ohmyzsh/ohmyzsh.git 4d4cfc287e9d887b81242c0e431b5f49f9cec5c1
+https://github.com/romkatv/powerlevel10k.git d05a1b00f9a61f9578bf9dc19b8451942dde8734
+https://github.com/MichaelAquilina/zsh-you-should-use.git 5f3d129864ee4505043d88c3486224f1d75b692e
