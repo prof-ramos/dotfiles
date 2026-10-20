@@ -26,6 +26,7 @@
   "docs/macos.md",
   "docs/migration-status.md",
   "docs/migration.md",
+  "docs/research/isolated-links-validation.md",
   "docs/research/macos-mathias-applicability.md",
   "docs/restore.md",
   "docs/ssh-config.example",
