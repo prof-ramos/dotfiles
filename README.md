@@ -28,3 +28,5 @@ Se houver conflito, o instalador para; após revisar, aplique com
 SSH, identidade Git e credenciais são locais. Copie seus dados privados antes de formatar.
 A configuração do Package Control declara Codex; no Mac novo, instalar Package Control
 pela paleta do Sublime. A instalação de apps não efetua login automaticamente.
+
+Registro da aplicação neste Mac: [migração concluída](docs/migration-status.md).

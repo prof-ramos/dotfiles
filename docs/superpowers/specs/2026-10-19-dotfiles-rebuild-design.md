@@ -1,6 +1,6 @@
 # Reconstrução dos dotfiles
 
-Status: desenho aprovado em conversa; especificação aguardando revisão.
+Status: especificação aprovada; implementação e migração concluídas. Ver docs/migration-status.md.
 
 ## Objetivo e critérios de sucesso
 
