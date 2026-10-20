@@ -1,0 +1,24 @@
+cask "1password"
+cask "1password-cli"
+cask "brave-browser"
+cask "discord"
+cask "google-chrome"
+cask "localsend"
+cask "microsoft-excel"
+cask "microsoft-word"
+cask "obsidian"
+cask "openlogi"
+cask "raycast"
+cask "telegram"
+cask "todoist-app"
+cask "utm"
+cask "voiceink"
+cask "whatsapp"
+mas "Brother iPrint&Scan", id: 1193539993
+mas "Canva", id: 897446215
+mas "Dropover", id: 1355679052
+mas "Hidden Bar", id: 1452453066
+mas "Home Assistant", id: 1099568401
+mas "Magnet", id: 441258766
+mas "Paste", id: 967805235
+mas "TestFlight", id: 899247664

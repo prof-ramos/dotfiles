@@ -38,5 +38,50 @@
     "package": ".",
     "source": ".p10k.zsh",
     "target": ".p10k.zsh"
+  },
+  {
+    "package": "ghostty",
+    "source": "Library/Application Support/com.mitchellh.ghostty/config.ghostty",
+    "target": "Library/Application Support/com.mitchellh.ghostty/config.ghostty"
+  },
+  {
+    "package": "sublime",
+    "source": "Library/Application Support/Sublime Text/Packages/User/Preferences.sublime-settings",
+    "target": "Library/Application Support/Sublime Text/Packages/User/Preferences.sublime-settings"
+  },
+  {
+    "package": "sublime",
+    "source": "Library/Application Support/Sublime Text/Packages/User/Markdown.sublime-settings",
+    "target": "Library/Application Support/Sublime Text/Packages/User/Markdown.sublime-settings"
+  },
+  {
+    "package": "sublime",
+    "source": "Library/Application Support/Sublime Text/Packages/User/XML.sublime-settings",
+    "target": "Library/Application Support/Sublime Text/Packages/User/XML.sublime-settings"
+  },
+  {
+    "package": "sublime",
+    "source": "Library/Application Support/Sublime Text/Packages/User/Distraction Free.sublime-settings",
+    "target": "Library/Application Support/Sublime Text/Packages/User/Distraction Free.sublime-settings"
+  },
+  {
+    "package": "sublime",
+    "source": "Library/Application Support/Sublime Text/Packages/User/codex_chat_appearance.py",
+    "target": "Library/Application Support/Sublime Text/Packages/User/codex_chat_appearance.py"
+  },
+  {
+    "package": "sublime",
+    "source": "Library/Application Support/Sublime Text/Packages/User/Codex Dark.sublime-color-scheme",
+    "target": "Library/Application Support/Sublime Text/Packages/User/Codex Dark.sublime-color-scheme"
+  },
+  {
+    "package": "sublime",
+    "source": "Library/Application Support/Sublime Text/Packages/User/Codex Light.sublime-color-scheme",
+    "target": "Library/Application Support/Sublime Text/Packages/User/Codex Light.sublime-color-scheme"
+  },
+  {
+    "package": "sublime",
+    "source": "Library/Application Support/Sublime Text/Packages/User/Package Control.sublime-settings",
+    "target": "Library/Application Support/Sublime Text/Packages/User/Package Control.sublime-settings"
   }
 ]

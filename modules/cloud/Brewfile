@@ -1,0 +1,14 @@
+tap "hashicorp/tap"
+tap "supabase/tap"
+tap "tursodatabase/tap"
+brew "googleworkspace-cli"
+brew "neonctl"
+brew "oci-cli"
+brew "opentofu"
+brew "rclone"
+brew "hashicorp/tap/terraform", trusted: true
+brew "supabase/tap/supabase", trusted: true
+brew "tursodatabase/tap/turso", trusted: true
+cask "cloudflare-warp"
+cask "gcloud-cli"
+cask "tailscale-app"

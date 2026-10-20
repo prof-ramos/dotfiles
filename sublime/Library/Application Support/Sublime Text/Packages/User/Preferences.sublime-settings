@@ -1,0 +1,23 @@
+{
+  "font_face": "JetBrainsMono NFM",
+  "font_size": 15,
+  "theme": "auto",
+  "color_scheme": "auto",
+  "line_padding_top": 2,
+  "line_padding_bottom": 2,
+  "word_wrap": true,
+  "wrap_width": 0,
+  "tab_size": 2,
+  "translate_tabs_to_spaces": true,
+  "draw_white_space": "selection",
+  "highlight_line": true,
+  "scroll_past_end": false,
+  "show_encoding": true,
+  "show_line_endings": true,
+  "font_options": [],
+  "ignored_packages":
+  [
+		"Vintage",
+  ],
+  "index_files": true,
+}

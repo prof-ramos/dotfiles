@@ -1,0 +1,5 @@
+# Keep actual hosts and key paths in ~/.ssh/config (local, not Stowed).
+Host example
+    HostName example.invalid
+    User your-user
+    IdentityFile ~/.ssh/your-private-key

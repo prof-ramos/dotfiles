@@ -1,0 +1,83 @@
+# ─── Fonte ────────────────────────────────────────────────────────────────────
+font-family = JetBrainsMono NFM
+font-style = Regular
+font-style-italic = Italic
+font-style-bold-italic = Bold Italic
+font-feature = calt
+font-feature = liga
+font-size = 14
+font-thicken = false
+
+# ─── Tema ─────────────────────────────────────────────────────────────────────
+# Omarchy Bauhaus (github.com/mwaltzer/omarchy-bauhaus-theme)
+background = #101318
+foreground = #EAEFF5
+cursor-color = #EAEFF5
+selection-background = #2B3040
+selection-foreground = #101318
+bold-is-bright = true
+palette = 0=#161B22
+palette = 1=#C0704F
+palette = 2=#6F999C
+palette = 3=#E7A46F
+palette = 4=#5E738B
+palette = 5=#8D758F
+palette = 6=#759496
+palette = 7=#EAEFF5
+palette = 8=#3A3F4C
+palette = 9=#E06C55
+palette = 10=#7B9B9F
+palette = 11=#E0A568
+palette = 12=#6C7C82
+palette = 13=#A3ADA7
+palette = 14=#7B9B9F
+palette = 15=#FFFFFF
+
+# ─── Cursor ───────────────────────────────────────────────────────────────────
+cursor-style = bar
+cursor-style-blink = true
+
+# ─── Janela ───────────────────────────────────────────────────────────────────
+window-padding-x = 8
+window-padding-y = 6
+window-padding-balance = true
+macos-titlebar-style = tabs
+macos-option-as-alt = left
+
+# ─── Aparência ────────────────────────────────────────────────────────────────
+background-opacity = 1
+background-blur-radius = 0
+unfocused-split-opacity = 0.9
+
+# NOTA: macos-titlebar-style = tabs usa abas nativas do macOS.
+# NÃO ativar macos-non-native-fullscreen — quebra as abas em fullscreen
+# (o Ghostty separa a aba focada em fullscreen e joga as outras numa janela à parte).
+
+# ─── Performance / Memória ────────────────────────────────────────────────────
+# Limite em bytes por painel: 10 MB, alocados conforme o uso (Mac com 8 GB RAM).
+scrollback-limit = 10000000
+scrollbar = system
+
+# ─── Shell integration ────────────────────────────────────────────────────────
+shell-integration = detect
+shell-integration-features = cursor,sudo,title
+
+# ─── Clipboard ────────────────────────────────────────────────────────────────
+copy-on-select = true
+
+# ─── Keybinds macOS ───────────────────────────────────────────────────────────
+keybind = cmd+t=new_tab
+keybind = cmd+w=close_surface
+keybind = cmd+shift+h=goto_split:left
+keybind = cmd+shift+l=goto_split:right
+keybind = cmd+shift+k=goto_split:top
+keybind = cmd+shift+j=goto_split:bottom
+keybind = cmd+d=new_split:right
+keybind = cmd+shift+d=new_split:down
+keybind = cmd+shift+enter=toggle_split_zoom
+keybind = cmd+up=jump_to_prompt:-1
+keybind = cmd+down=jump_to_prompt:1
+keybind = global:cmd+backquote=toggle_quick_terminal
+
+# Terminal rápido no monitor onde o ponteiro está.
+quick-terminal-screen = mouse

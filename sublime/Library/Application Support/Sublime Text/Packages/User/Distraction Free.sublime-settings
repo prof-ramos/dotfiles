@@ -1,0 +1,8 @@
+{
+  "font_size": 16,
+  "word_wrap": true,
+  "wrap_width": 90,
+  "line_numbers": false,
+  "gutter": false,
+  "draw_centered": true
+}

@@ -1,0 +1,15 @@
+{
+  "tab_size": 2,
+  "translate_tabs_to_spaces": true,
+  "detect_indentation": false,
+  "auto_indent": true,
+  "smart_indent": true,
+  "word_wrap": true,
+  "wrap_width": 0,
+  "match_tags": true,
+  "auto_close_tags": true,
+  "draw_white_space": "selection",
+  "rulers": [
+    100
+  ]
+}
