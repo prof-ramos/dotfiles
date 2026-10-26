@@ -1,5 +1,13 @@
-# Keep actual hosts and key paths in ~/.ssh/config (local, not Stowed).
+# Exemplo para integrar manualmente a ~/.ssh/config; nao e aplicado pelo Stow.
+# Destinos, usuarios e confianca do servidor: consultar o inventario privado infra.
+# Identidade especifica por chave publica armazenada localmente, sem exportar a privada.
 Host example
     HostName example.invalid
     User your-user
-    IdentityFile ~/.ssh/your-private-key
+    IdentityFile ~/.ssh/your-key.pub
+    IdentitiesOnly yes
+    StrictHostKeyChecking yes
+
+# Manter excecoes como IdentityAgent none ANTES do bloco global, quando aplicaveis.
+Host *
+    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"

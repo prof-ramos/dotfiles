@@ -48,3 +48,5 @@ Workspace: `./scripts/workspace.sh sublime` ou `./scripts/workspace.sh codex`.
 Instalação de skills com dependências: veja [fluxo de agentes](docs/agents/workflow.md).
 
 Validação de arquivos em home temporário: [procedimento e limites](docs/research/isolated-links-validation.md).
+
+Preparação do 1Password, SSH e acesso ao repositório privado de infraestrutura: [infra](docs/infra.md).
