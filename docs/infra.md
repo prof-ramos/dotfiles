@@ -38,7 +38,11 @@ Isso comprova a resposta do agente, não autorização em um servidor. Conexão 
 
 ## Repositório infra e GitHub
 
-Obtenha o endereço privado confirmado do `infra`, clone-o separadamente, por exemplo em `~/Developer/infra`, e leia seu `AGENTS.md`. Um diretório local sem remoto ainda não pode ser restaurado por clone; a publicação precisa estar concluída para essa etapa funcionar.
+O [infra](https://github.com/prof-ramos/infra) é privado e exige acesso autorizado à conta GitHub. Clone-o separadamente e leia seu `AGENTS.md`:
+
+```sh
+git clone https://github.com/prof-ramos/infra.git ~/Developer/infra
+```
 
 O roteiro detalhado fica em `m3-gabrielramos/1password/README.md` dentro do `infra`. Ele descreve validações seguras e a seleção da credencial existente do GitHub. O arquivo local `.op/` não é versionado: no Mac novo, valide a credencial e configure o plugin no diretório apropriado. Não emita token novo nem amplie escopos apenas para reproduzir a configuração.
 
