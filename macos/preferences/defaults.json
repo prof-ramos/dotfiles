@@ -27,7 +27,7 @@
   {
     "domain": "com.apple.dock",
     "key": "tilesize",
-    "value": 52.0
+    "value": 76.0
   },
   {
     "domain": "com.apple.dock",
@@ -67,6 +67,97 @@
   {
     "domain": "com.apple.dock",
     "key": "persistent-apps",
-    "value": []
+    "value": [
+      {
+        "tile-type": "file-tile",
+        "tile-data": {
+          "file-data": {
+            "_CFURLString": "file:///Applications/Ghostty.app/",
+            "_CFURLStringType": 15
+          }
+        }
+      },
+      {
+        "tile-type": "file-tile",
+        "tile-data": {
+          "file-data": {
+            "_CFURLString": "file:///Applications/WhatsApp.app/",
+            "_CFURLStringType": 15
+          }
+        }
+      },
+      {
+        "tile-type": "file-tile",
+        "tile-data": {
+          "file-data": {
+            "_CFURLString": "file:///Applications/ego%20lite.app/",
+            "_CFURLStringType": 15
+          }
+        }
+      },
+      {
+        "tile-type": "file-tile",
+        "tile-data": {
+          "file-data": {
+            "_CFURLString": "file:///Applications/Sublime%20Text.app/",
+            "_CFURLStringType": 15
+          }
+        }
+      },
+      {
+        "tile-type": "file-tile",
+        "tile-data": {
+          "file-data": {
+            "_CFURLString": "file:///Applications/Grok%20Bot.app/",
+            "_CFURLStringType": 15
+          }
+        }
+      },
+      {
+        "tile-type": "file-tile",
+        "tile-data": {
+          "file-data": {
+            "_CFURLString": "file:///Applications/ChatGPT.app/",
+            "_CFURLStringType": 15
+          }
+        }
+      },
+      {
+        "tile-type": "file-tile",
+        "tile-data": {
+          "file-data": {
+            "_CFURLString": "file:///Applications/Obsidian.app/",
+            "_CFURLStringType": 15
+          }
+        }
+      },
+      {
+        "tile-type": "file-tile",
+        "tile-data": {
+          "file-data": {
+            "_CFURLString": "file:///Applications/Tailscale.app/",
+            "_CFURLStringType": 15
+          }
+        }
+      },
+      {
+        "tile-type": "file-tile",
+        "tile-data": {
+          "file-data": {
+            "_CFURLString": "file:///Applications/Telegram.app/",
+            "_CFURLStringType": 15
+          }
+        }
+      },
+      {
+        "tile-type": "file-tile",
+        "tile-data": {
+          "file-data": {
+            "_CFURLString": "file:///Applications/Cursor.app/",
+            "_CFURLStringType": 15
+          }
+        }
+      }
+    ]
   }
 ]

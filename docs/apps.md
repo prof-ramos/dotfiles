@@ -138,3 +138,40 @@ Package Control, sem vendor no Git. Autenticar Codex CLI manualmente.
 Codex plugin 1.160.0 informa testes com CLI 0.160.1; Homebrew pode atualizar o CLI.
 Conferir compatibilidade antes de declarar a integração funcional. A restauração
 visual não envia mensagens nem altera permissões, modelo ou autenticação.
+
+## OpenLogi: teclado e mouse
+
+O módulo `personal` já instala o OpenLogi. Abra o aplicativo com o Pebble Keys 2
+K380s e o LIFT conectados para registrar suas identidades locais. Autorize
+Acessibilidade e Monitoramento de Entrada quando o macOS solicitar.
+
+A receita `macos/openlogi.json` define F5 e F8 sem Fn no K380s, mantendo as
+demais teclas de função com Fn, e o botão Voltar do LIFT como **Control+R**.
+As ações valem em todos os aplicativos e dependem do agente OpenLogi ativo.
+F5 substitui a busca e F8 substitui o painel de emoji nessas teclas sem Fn.
+
+Feche a janela do OpenLogi antes de aplicar e reabra o aplicativo depois:
+
+```sh
+python3 scripts/openlogi-settings.py plan
+python3 scripts/openlogi-settings.py apply
+open -a OpenLogi
+```
+
+O comando preserva outras preferências e comentários, não publica identidades
+dos dispositivos e imprime o caminho de um journal privado antes da recarga.
+A reaplicação não altera nada quando os ajustes já estão presentes. Dispositivos
+ausentes ou duplicados e configurações concorrentes interrompem a aplicação.
+O script modifica somente o arquivo; reabrir o OpenLogi recarrega os ajustes e
+aplica o Fn Lock salvo. Não há alteração global do teclado do macOS.
+
+Para desfazer, feche a janela do OpenLogi, use o journal impresso e reabra:
+
+```sh
+python3 scripts/openlogi-settings.py restore --journal '/caminho/impresso/journal.json'
+open -a OpenLogi
+```
+
+O restore recusa sobrescrever alterações feitas depois. Ele restaura o arquivo;
+se o backup não tinha preferência de Fn Lock, o firmware pode manter o último
+estado. Nesse caso, ajuste o Fn Lock na interface para o estado anterior.

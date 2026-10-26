@@ -3,7 +3,10 @@
 `python3 scripts/macos-preferences.py diff` compara somente as chaves declaradas.
 `apply` salva valores anteriores (inclusive ausência) antes de aplicar;
 `restore --journal PATH` desfaz, recusando mudanças posteriores conflitantes.
-O Dock fica sem apps fixados e sem recentes. Finder/apps abertos continuam visíveis.
+O Dock usa tamanho 76 e preserva a ordem declarada de dez apps fixados, sem recentes.
+O perfil registra somente caminhos dos aplicativos; bookmarks, identificadores e
+datas internos do Dock ficam nos backups privados e não entram no Git. A comparação
+confere aplicativos e ordem, ignorando esses metadados regenerados pelo macOS.
 Algumas preferências passam a valer após reabrir o app ou iniciar nova sessão.
 
 `swift scripts/apply-folder-icons.swift --map macos/folder-icons.json --home "$HOME"`
@@ -13,14 +16,16 @@ O diário privado impresso permite `--restore PATH`; a pasta criada permanece va
 se só o ícone for desfeito. O restore recusa ícones modificados posteriormente.
 
 `python3 scripts/default-apps.py diff` mostra quantas associações mudarão.
-`apply` usa duti para associar as extensões de macos/default-apps.json ao Sublime Text;
+`apply` usa duti para associar cada extensão ao bundle ID em macos/default-apps.json;
 `restore --journal PATH` restaura os handlers anteriores. Sem um handler anterior
 recuperável, a etapa para antes de modificar qualquer associação: escolha primeiro
 um aplicativo pelo Finder e execute novamente. O backup registra o app de abertura
 anterior por extensão; não captura distinções avançadas de roles do Launch Services.
 
 Lista inicial: md, markdown, csv, txt, json, xml, yaml, yml, toml e log.
-O usuário pode editar a lista versionada. EDITOR/VISUAL também usam `subl -w`.
+Markdown usa Obsidian; JSON, YAML e TOML usam Cursor; CSV, TXT, XML e LOG usam
+Sublime Text. O usuário pode editar o mapa versionado. Listas antigas continuam
+aceitas com Sublime como destino. EDITOR/VISUAL usam `subl -w`.
 A verificação em Mac recém-formatado ainda está pendente.
 
 `diff` identifica cada chave e seus valores atuais/propostos, resumindo estruturas

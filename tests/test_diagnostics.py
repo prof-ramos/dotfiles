@@ -12,12 +12,13 @@ class DiagnosticTests(unittest.TestCase):
    repo=base/'repo';(repo/'scripts').mkdir(parents=True);(repo/'macos/preferences').mkdir(parents=True);(repo/'.zshrc').write_text('new shell')
    (repo/'scripts/managed-files.json').write_text('[{"package":".","source":".zshrc","target":".zshrc"}]')
    (repo/'macos/preferences/defaults.json').write_text('[{"domain":"com.apple.dock","key":"tilesize","value":68}]')
-   (repo/'macos/default-apps.json').write_text('["txt"]');(repo/'macos/folder-icons.json').write_text('[]')
+   (repo/'macos/default-apps.json').write_text('{"txt":"com.apple.TextEdit"}');(repo/'macos/folder-icons.json').write_text('[]')
    before=list(home.iterdir());plan=p.build_plan(repo,home,['shell','macos','visual'],[],prefs,handlers)
    self.assertEqual(list(home.iterdir()),before);self.assertEqual((home/'.zshrc').read_text(),'private content')
    self.assertEqual(next(i for i in plan['links'] if i['target']=='.zshrc')['action'],'conflict')
    change=next(i for i in plan['preferences'] if i['key']=='tilesize');self.assertEqual(change['current'],52);self.assertEqual(change['desired'],68)
    text=p.format_plan(plan);self.assertIn('tilesize',text);self.assertIn('52',text);self.assertNotIn('private content',text)
+   self.assertEqual(plan['handlers'],[{'extension':'txt','current':'com.apple.TextEdit','desired':'com.apple.TextEdit','change':False}])
  def test_preference_apply_detects_backend_that_did_not_persist(self):
   a=load('macos-preferences')
   class Broken(a.MemoryBackend):

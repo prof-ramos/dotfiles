@@ -44,4 +44,4 @@ persistência; `apply` também recarrega o Dock quando modifica suas preferênci
 Workspace: `./scripts/workspace.sh sublime` ou `./scripts/workspace.sh codex`.
 Instalação de skills com dependências: veja [fluxo de agentes](docs/agents/workflow.md).
 
-Validação de arquivos em home temporário: [resultados e limites](docs/research/isolated-links-validation.md).
+Validação de arquivos em home temporário: [procedimento e limites](docs/research/isolated-links-validation.md).

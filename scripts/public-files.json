@@ -37,6 +37,7 @@
   "macos/default-apps.json",
   "macos/folder-icons.json",
   "macos/icons/infra.icns",
+  "macos/openlogi.json",
   "macos/preferences/defaults.json",
   "modules/cloud/Brewfile",
   "modules/development/Brewfile",
@@ -55,6 +56,7 @@
   "scripts/links.py",
   "scripts/macos-preferences.py",
   "scripts/managed-files.json",
+  "scripts/openlogi-settings.py",
   "scripts/preview.py",
   "scripts/public-files.json",
   "scripts/skill-doctor.py",
@@ -78,6 +80,7 @@
   "tests/test_guardrails.py",
   "tests/test_links.py",
   "tests/test_macos_preferences.py",
+  "tests/test_openlogi.py",
   "tests/test_public_files.py",
   "tests/test_setup.py",
   "tests/test_shell_deps.py"
