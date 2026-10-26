@@ -50,10 +50,11 @@ Após clonar o `infra`, execute seu gate offline:
 
 ```sh
 cd ~/Developer/infra
+git clone https://github.com/prof-ramos/observatorio.git observatorio
 python3 scripts/check-all.py
 ```
 
-O gate não autentica serviços. Complete o roteiro privado com testes reais de GitHub e dos hosts necessários; não publique a lista de máquinas ou dados dos cofres neste repositório.
+O Observatório é clonado separadamente porque seus guias são referenciados pelo inventário; o gate confere esses links locais. O gate não autentica serviços. Complete o roteiro privado com testes reais de GitHub e dos hosts necessários; não publique a lista de máquinas ou dados dos cofres neste repositório.
 
 ## Fontes oficiais
 
