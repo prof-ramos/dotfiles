@@ -1,0 +1,20 @@
+{
+  "devices": [
+    {
+      "model_id": 45943,
+      "kind": "keyboard",
+      "fn_lock": false,
+      "bindings": {
+        "KeySearch": { "CustomShortcut": "F5" },
+        "KeyEmoji": { "CustomShortcut": "F8" }
+      }
+    },
+    {
+      "model_id": 45105,
+      "kind": "mouse",
+      "bindings": {
+        "Back": { "CustomShortcut": "Ctrl+R" }
+      }
+    }
+  ]
+}

@@ -34,8 +34,16 @@ de Launch Services não são preservadas individualmente pelo backup de app padr
 
 ## Conferência posterior de preferências
 
-Após reiniciar o Dock, o tamanho lido foi 52 e a posição à direita; o perfil
-capturado ainda declara 68. A divergência não foi sobrescrita: a nova solicitação
-do usuário é avaliar ajustes do Mathias, antes de escolher o próximo perfil.
+Na conferência inicial, o tamanho lido foi 52 e a posição à direita; o perfil
+capturado então declarava 68. A divergência não foi sobrescrita nessa ocasião.
 A comparação está em docs/research/macos-mathias-applicability.md.
 O CI do commit de conclusão passou: https://github.com/prof-ramos/dotfiles/actions/runs/39364296143.
+
+## Sincronização com o Mac em 26/10/2026
+
+O perfil passa a refletir o Dock atual: tamanho 76 e dez aplicativos fixados na
+mesma ordem, sem copiar metadados privados. As associações atuais são Obsidian
+para Markdown, Cursor para JSON/YAML/TOML e Sublime para CSV/TXT/XML/LOG.
+Essa atualização registra o estado observado, sem reaplicar preferências no Mac.
+A receita opcional OpenLogi está documentada em docs/apps.md. Credenciais do
+shell permanecem em arquivo privado, fora dos arquivos versionados.

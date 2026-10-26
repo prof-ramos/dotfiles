@@ -1,12 +1,12 @@
-[
-  "md",
-  "markdown",
-  "csv",
-  "txt",
-  "json",
-  "xml",
-  "yaml",
-  "yml",
-  "toml",
-  "log"
-]
+{
+  "md": "md.obsidian",
+  "markdown": "md.obsidian",
+  "csv": "com.sublimetext.4",
+  "txt": "com.sublimetext.4",
+  "json": "com.todesktop.230313mzl4w4u92",
+  "xml": "com.sublimetext.4",
+  "yaml": "com.todesktop.230313mzl4w4u92",
+  "yml": "com.todesktop.230313mzl4w4u92",
+  "toml": "com.todesktop.230313mzl4w4u92",
+  "log": "com.sublimetext.4"
+}

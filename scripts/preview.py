@@ -22,20 +22,21 @@ def build_plan(repo,home,stages,modules,prefs=None,handlers=None):
  if 'shell' in stages:
   plan['links']=[{k:i[k] for k in ['package','source','target','action']} for i in plan_links(repo,home)]
  if 'macos' in stages:
+  preferences=load('macos-preferences')
   prefs=prefs or load('macos-preferences').DefaultsBackend()
   if not shutil.which('defaults') and not hasattr(prefs,'values'):plan['notes'].append('defaults unavailable: current preferences unknown')
   else:
    for item in json.loads((repo/'macos/preferences/defaults.json').read_text()):
     exists,current=prefs.get(item['domain'],item['key'])
-    plan['preferences'].append({'domain':item['domain'],'key':item['key'],'exists':exists,'current':safe_value(current),'desired':safe_value(item['value']),'change':not exists or current!=item['value'] or type(current) is not type(item['value'])})
+    plan['preferences'].append({'domain':item['domain'],'key':item['key'],'exists':exists,'current':safe_value(current),'desired':safe_value(item['value']),'change':not exists or not preferences.preference_matches(item['domain'],item['key'],current,item['value'])})
  if 'visual' in stages:
   for item in json.loads((repo/'macos/folder-icons.json').read_text()):
    target=home/item['folder'];asset=repo/'macos'/item['icon']
    plan['icons'].append({'folder':str(target),'icon':str(asset),'create_folder':not target.exists(),'asset_exists':asset.is_file()})
   handlers=handlers or (load('default-apps').DutiHandlers() if shutil.which('duti') else None)
-  for ext in json.loads((repo/'macos/default-apps.json').read_text()):
+  for ext,bundle in load('default-apps').handler_targets(json.loads((repo/'macos/default-apps.json').read_text())).items():
    current=handlers.get(ext) if handlers else None
-   plan['handlers'].append({'extension':ext,'current':current,'desired':'com.sublimetext.4','change':current!='com.sublimetext.4'})
+   plan['handlers'].append({'extension':ext,'current':current,'desired':bundle,'change':current!=bundle})
  return plan
 
 def format_plan(plan):

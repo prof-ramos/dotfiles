@@ -24,11 +24,21 @@ class DefaultsBackend:
  def delete(self,domain,key):
   if self.get(domain,key)[0]:subprocess.run(['defaults','delete',domain,key],check=True)
 
+def preference_matches(domain,key,current,desired):
+ # Dock regenerates bookmarks, GUIDs and timestamps. Only app identity/order
+ # belongs in the portable declaration; backups still preserve the full plist.
+ if domain=='com.apple.dock' and key=='persistent-apps' and isinstance(current,list) and isinstance(desired,list):
+  def identities(tiles):
+   return [(tile['tile-type'],tile['tile-data']['file-data']['_CFURLString']) for tile in tiles]
+  try:return identities(current)==identities(desired)
+  except (KeyError,TypeError):return current==desired
+ return type(current) is type(desired) and current==desired
+
 def verify_preferences(items,backend):
  differences=[]
  for item in items:
   exists,current=backend.get(item['domain'],item['key'])
-  if not exists or current!=item['value'] or type(current) is not type(item['value']):
+  if not exists or not preference_matches(item['domain'],item['key'],current,item['value']):
    differences.append({'domain':item['domain'],'key':item['key'],'current':current,'desired':item['value'],'exists':exists})
  return differences
 
@@ -51,7 +61,7 @@ def apply_preferences(items,backend,state_dir,dry=False):
  changes=[]
  for item in items:
   exists,value=backend.get(item['domain'],item['key'])
-  if not exists or value!=item['value'] or type(value) is not type(item['value']):changes.append(dict(item,existed=exists,previous_plist=base64.b64encode(plistlib.dumps(value)).decode() if exists else None,status='prepared'))
+  if not exists or not preference_matches(item['domain'],item['key'],value,item['value']):changes.append(dict(item,existed=exists,previous_plist=base64.b64encode(plistlib.dumps(value)).decode() if exists else None,status='prepared'))
  if dry:
   print_differences(verify_preferences(items,backend));return None
  run=private_dir(Path(state_dir)/('preferences-'+uuid.uuid4().hex));journal=run/'preferences.json';write_json(journal,changes)
@@ -74,8 +84,8 @@ def restore_preferences(journal,backend):
  for item in reversed(items):
   now=backend.get(item['domain'],item['key'])
   previous=plistlib.loads(base64.b64decode(item['previous_plist'])) if item['existed'] else None
-  if now[0]==item['existed'] and (not now[0] or (type(now[1]) is type(previous) and now[1]==previous)):continue
-  if not now[0] or type(now[1]) is not type(item['value']) or now[1]!=item['value']:raise ValueError('Preference changed after application')
+  if now[0]==item['existed'] and (not now[0] or preference_matches(item['domain'],item['key'],now[1],previous)):continue
+  if not now[0] or not preference_matches(item['domain'],item['key'],now[1],item['value']):raise ValueError('Preference changed after application')
   if item['existed']:backend.set(item['domain'],item['key'],previous)
   else:backend.delete(item['domain'],item['key'])
   item['status']='restored';write_json(journal,items)

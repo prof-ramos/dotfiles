@@ -4,6 +4,25 @@ import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 spec=importlib.util.spec_from_file_location('prefs',Path(__file__).resolve().parents[1]/'scripts/macos-preferences.py')
 class PrefTests(unittest.TestCase):
+ def test_dock_metadata_is_ignored_but_order_and_app_changes_are_detected(self):
+  a=self.api()
+  desired=[{'tile-type':'file-tile','tile-data':{'file-data':{'_CFURLString':'file:///Applications/One.app/','_CFURLStringType':15}}},
+           {'tile-type':'file-tile','tile-data':{'file-data':{'_CFURLString':'file:///Applications/Two.app/','_CFURLStringType':15}}}]
+  import copy
+  current=copy.deepcopy(desired)
+  current[0]['GUID']=123
+  current[0]['tile-data']['book']=b'private-bookmark'
+  current[0]['tile-data']['file-mod-date']=456
+  item={'domain':'com.apple.dock','key':'persistent-apps','value':desired}
+  backend=a.MemoryBackend({('com.apple.dock','persistent-apps'):current})
+  self.assertEqual(a.verify_preferences([item],backend),[])
+  with tempfile.TemporaryDirectory() as td:
+   journal=a.apply_preferences([item],backend,Path(td).resolve())
+   self.assertEqual(backend.get('com.apple.dock','persistent-apps')[1],current)
+  backend.set('com.apple.dock','persistent-apps',list(reversed(current)))
+  self.assertEqual(len(a.verify_preferences([item],backend)),1)
+  backend.set('com.apple.dock','persistent-apps',current[:1])
+  self.assertEqual(len(a.verify_preferences([item],backend)),1)
  def api(self):
   m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
  def test_missing_key_restored_by_delete(self):
