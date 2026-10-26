@@ -3,6 +3,16 @@ from pathlib import Path
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 class AppTests(unittest.TestCase):
+ def test_missing_destination_aborts_before_any_changes_or_journal(self):
+  a=self.api()
+  class MissingApp(a.MemoryHandlers):
+   def available(self,bundle):return bundle!='missing.bundle'
+  b=MissingApp({'txt':'old.bundle','md':'old.markdown'})
+  with tempfile.TemporaryDirectory() as td:
+   with self.assertRaisesRegex(ValueError,'missing.bundle'):
+    a.apply_handlers({'txt':'com.sublimetext.4','md':'missing.bundle'},b,Path(td).resolve())
+   self.assertEqual(list(Path(td).iterdir()),[])
+  self.assertEqual(b.values,{'txt':'old.bundle','md':'old.markdown'})
  def test_per_extension_targets_apply_and_restore(self):
   a=self.api();b=a.MemoryHandlers({'md':'old.markdown','json':'old.json'})
   with tempfile.TemporaryDirectory() as td:

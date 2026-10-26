@@ -9,6 +9,12 @@ datas internos do Dock ficam nos backups privados e não entram no Git. A compar
 confere aplicativos e ordem, ignorando esses metadados regenerados pelo macOS.
 Algumas preferências passam a valer após reabrir o app ou iniciar nova sessão.
 
+Para reproduzir a lista do Dock, instale antes Ghostty, WhatsApp, ego lite,
+Sublime Text, Grok Bot, ChatGPT, Obsidian, Tailscale, Telegram e Cursor nos caminhos
+de `macos/preferences/defaults.json`. Nem todos fazem parte do núcleo ou dos
+módulos disponíveis: apps próprios e externos precisam de instalação separada.
+Um caminho ausente não instala o aplicativo e pode não produzir um ícone utilizável.
+
 `swift scripts/apply-folder-icons.swift --map macos/folder-icons.json --home "$HOME"`
 cria pastas declaradas e aplica os ícones. Adicione .icns em macos/icons/ e entradas
 folder/icon relativas ao home e ao diretório do mapa. `--dry-run` não altera nada.
@@ -21,6 +27,9 @@ se só o ícone for desfeito. O restore recusa ícones modificados posteriorment
 recuperável, a etapa para antes de modificar qualquer associação: escolha primeiro
 um aplicativo pelo Finder e execute novamente. O backup registra o app de abertura
 anterior por extensão; não captura distinções avançadas de roles do Launch Services.
+Todos os aplicativos de destino são verificados antes de alterar qualquer
+associação. O perfil exige Obsidian e Cursor além do Sublime; instale esses apps
+pelos módulos `personal` e `development`, ou adapte o mapa antes da etapa visual.
 
 Lista inicial: md, markdown, csv, txt, json, xml, yaml, yml, toml e log.
 Markdown usa Obsidian; JSON, YAML e TOML usam Cursor; CSV, TXT, XML e LOG usam

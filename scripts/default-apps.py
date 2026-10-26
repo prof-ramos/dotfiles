@@ -11,7 +11,13 @@ class MemoryHandlers:
  def __init__(self,values):self.values=values.copy()
  def get(self,ext):return self.values.get(ext)
  def set(self,ext,bundle):self.values[ext]=bundle
+ def available(self,bundle):return True
 class DutiHandlers:
+ def available(self,bundle):
+  # Resolve through Launch Services without launching the destination app.
+  script='ObjC.import("AppKit"); function run(argv) { return Boolean(ObjC.unwrap($.NSWorkspace.sharedWorkspace.URLForApplicationWithBundleIdentifier(argv[0]))); }'
+  r=subprocess.run(['osascript','-l','JavaScript','-e',script,bundle],capture_output=True,text=True,check=True,timeout=10)
+  return r.stdout.strip()=='true'
  def get(self,ext):
   r=subprocess.run(['duti','-x',ext],capture_output=True,text=True)
   lines=r.stdout.strip().splitlines()
@@ -29,6 +35,7 @@ def apply_handlers(extensions,backend,state_dir,dry=False):
  for ext,bundle in handler_targets(extensions).items():
   if not ext.isalnum():raise ValueError('Invalid extension')
   if not isinstance(bundle,str) or not bundle.strip():raise ValueError('Invalid application bundle')
+  if not backend.available(bundle):raise ValueError('Destination application not installed: '+bundle+'. Install it before applying the visual stage.')
   old=backend.get(ext)
   if not old:raise ValueError('No recoverable current handler for .'+ext)
   if old!=bundle:records.append({'extension':ext,'before':old,'after':bundle,'status':'prepared'})

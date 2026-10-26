@@ -14,6 +14,9 @@ com Zsh, Stow e etapas independentes. Credenciais e estado de aplicativos ficam 
 Instale Command Line Tools quando solicitado e execute novamente após concluir.
 O bootstrap instala Homebrew pela fonte oficial quando ausente. Não use `source`.
 Apps de outros módulos só entram com `--module personal|development|security|cloud|media`.
+Antes da etapa `visual`, instale Obsidian (`personal`) e Cursor (`development`),
+ou ajuste `macos/default-apps.json` para os aplicativos disponíveis. O perfil atual
+do Dock também inclui apps externos ao núcleo; veja os pré-requisitos em [macOS](docs/macos.md).
 Sublime Text é EDITOR/VISUAL com espera (`subl -w`). Git usa identidade local em
 ~/.gitconfig.local. Autenticações são manuais; senhas e chaves privadas não entram no Git.
 Validação: `python3 -m unittest discover -s tests -v`.
