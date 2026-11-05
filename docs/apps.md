@@ -8,6 +8,7 @@ Nenhum módulo é instalado por padrão. Todos preservam os apps já existentes 
 - `cask "1password-cli"`
 - `cask "brave-browser"`
 - `cask "discord"`
+- `cask "droppy"`
 - `cask "google-chrome"`
 - `cask "localsend"`
 - `cask "microsoft-excel"`
