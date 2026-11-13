@@ -15,6 +15,26 @@
     "value": true
   },
   {
+    "domain": "NSGlobalDomain",
+    "key": "AppleFontSmoothing",
+    "value": 1
+  },
+  {
+    "domain": "com.apple.WindowManager",
+    "key": "StandardHideWidgets",
+    "value": true
+  },
+  {
+    "domain": "com.apple.WindowManager",
+    "key": "StageHideWidgets",
+    "value": true
+  },
+  {
+    "domain": "com.apple.controlcenter",
+    "key": "AirplayRecieverEnabled",
+    "value": false
+  },
+  {
     "domain": "com.apple.finder",
     "key": "ShowPathbar",
     "value": true
@@ -28,6 +48,11 @@
     "domain": "com.apple.dock",
     "key": "tilesize",
     "value": 80.0
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "mineffect",
+    "value": "scale"
   },
   {
     "domain": "com.apple.dock",

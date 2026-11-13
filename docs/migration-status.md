@@ -2,7 +2,9 @@
 
 Novo repositório: https://github.com/prof-ramos/dotfiles (público).
 Legado: https://github.com/prof-ramos/dotfiles-legacy (privado e arquivado).
-Checkout ativo: ~/Developer/dotfiles-next. Checkout legado preservado: ~/Developer/dotfiles.
+Checkout ativo: ~/Developer/dotfiles. Checkout legado preservado: ~/Developer/dotfiles-legacy.
+Em 31/10/2026 os checkouts foram renomeados e os 18 links gerenciados foram
+atualizados. ~/Developer/dotfiles-next é um link de compatibilidade para o checkout ativo.
 
 Aplicação: apenas núcleo. Nenhum aplicativo existente foi desinstalado. Os cinco
 módulos opcionais permanecem disponíveis e não foram instalados nesta migração.
@@ -23,8 +25,8 @@ Backups privados em ~/Library/Application Support/dotfiles/backups/:
 - icons-AC5BA742-CA13-461D-8ECD-DCBDB32C1A11/icons.json: ícone anterior.
 - apps-fc8cb480354d4240aabd3ff2e0195a20/apps.json: aplicativos padrão anteriores.
 
-Para voltar, usar os journals conforme docs/restore.md e docs/macos.md, mantendo
-ambos os checkouts no lugar. Não apagar backups nem o checkout antigo antes de
+Para voltar, revisar os caminhos históricos dos journals conforme docs/restore.md
+e docs/macos.md, mantendo ambos os checkouts no lugar. Não apagar backups nem o checkout antigo antes de
 terminar a avaliação pessoal. Restores recusam modificações posteriores conflitantes.
 
 Limites: restauração em macOS recém-formatado, autenticações e instalações de

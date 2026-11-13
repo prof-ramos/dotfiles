@@ -3,7 +3,8 @@
 `python3 scripts/macos-preferences.py diff` compara somente as chaves declaradas.
 `apply` salva valores anteriores (inclusive ausência) antes de aplicar;
 `restore --journal PATH` desfaz, recusando mudanças posteriores conflitantes.
-O Dock usa tamanho 80 e preserva Ghostty e ego lite fixados nessa ordem, sem recentes.
+O Dock usa tamanho 80, efeito de minimização `scale` e preserva Ghostty e ego lite fixados nessa ordem, sem recentes.
+O perfil também declara `AppleFontSmoothing=1` (nitidez de fontes para o monitor externo QHD 2560×1440 não-Retina), ocultação de widgets na Mesa e no Stage Manager (`StandardHideWidgets=true`, `StageHideWidgets=true`) e desativação do Receptor AirPlay (`AirplayRecieverEnabled=false`).
 O perfil registra somente caminhos dos aplicativos; bookmarks, identificadores e
 datas internos do Dock ficam nos backups privados e não entram no Git. A comparação
 confere aplicativos e ordem, ignorando esses metadados regenerados pelo macOS.

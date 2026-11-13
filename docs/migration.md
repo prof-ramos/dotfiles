@@ -1,8 +1,9 @@
 # Migração do legado
 
-Novo checkout em ~/Developer/dotfiles-next; legado permanece em ~/Developer/dotfiles.
-Não renomear pastas antes de reconfigurar todos os links. Só o repositório GitHub
-passa a dotfiles-legacy; o novo dotfiles tem histórico independente.
+O checkout ativo está em ~/Developer/dotfiles e o legado em
+~/Developer/dotfiles-legacy. O caminho anterior ~/Developer/dotfiles-next é um
+link de compatibilidade para o checkout ativo. Os links gerenciados foram
+atualizados em 31/10/2026. O novo dotfiles tem histórico independente.
 
 1. Backup privado e commits preservam alterações atuais.
 2. Validar scripts, arquivos públicos e links em home temporário.

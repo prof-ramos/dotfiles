@@ -25,6 +25,37 @@ class SetupTests(unittest.TestCase):
 
 class ShellStartupTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which('zsh'), 'zsh is required')
+    def test_fnm_node_takes_precedence_over_video_fallback(self):
+        for with_fnm in (True, False):
+            with self.subTest(with_fnm=with_fnm), tempfile.TemporaryDirectory() as td:
+                home = Path(td)
+                (home / '.exports').touch()
+                bins = home / 'bin'
+                bins.mkdir()
+                for directory, command, result in (
+                    ('.editor-video/node/bin', 'node', 'video-node'),
+                    ('.editor-video/bin', 'ffmpeg', 'video-ffmpeg'),
+                    ('project-node/bin', 'node', 'project-node'),
+                ):
+                    executable = home / directory / command
+                    executable.parent.mkdir(parents=True, exist_ok=True)
+                    executable.write_text(f'#!/bin/sh\necho {result}\n')
+                    executable.chmod(0o755)
+                if with_fnm:
+                    fnm = bins / 'fnm'
+                    fnm.write_text('#!/bin/sh\ncat <<\'ENV\'\nexport PATH="$HOME/project-node/bin:$PATH"\nENV\n')
+                    fnm.chmod(0o755)
+                env = dict(HOME=td, ZDOTDIR=td, HOMEBREW_PREFIX=td,
+                           PATH=f'{bins}:/usr/bin:/bin')
+                result = subprocess.run(
+                    ['/bin/zsh', '-fic', 'source "$1"; node; ffmpeg',
+                     'test', str(REPO / '.zshrc')],
+                    env=env, capture_output=True, text=True, timeout=10)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                expected_node = 'project-node' if with_fnm else 'video-node'
+                self.assertEqual(result.stdout.splitlines(), [expected_node, 'video-ffmpeg'])
+
+    @unittest.skipUnless(shutil.which('zsh'), 'zsh is required')
     def test_theme_loads_when_instant_prompt_redirects_stdout(self):
         with tempfile.TemporaryDirectory() as td:
             home = Path(td)
