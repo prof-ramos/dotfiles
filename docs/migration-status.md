@@ -41,8 +41,8 @@ O CI do commit de conclusão passou: https://github.com/prof-ramos/dotfiles/acti
 
 ## Sincronização com o Mac em 26/10/2026
 
-O perfil passa a refletir o Dock atual: tamanho 76 e dez aplicativos fixados na
-mesma ordem, sem copiar metadados privados. As associações atuais são Obsidian
+Após a conferência de 13/11/2026, o perfil reflete o Dock atual: tamanho 80,
+Ghostty e ego lite fixados nessa ordem, sem copiar metadados privados. As associações atuais são Obsidian
 para Markdown, Cursor para JSON/YAML/TOML e Sublime para CSV/TXT/XML/LOG.
 Essa atualização registra o estado observado, sem reaplicar preferências no Mac.
 A receita opcional OpenLogi está documentada em docs/apps.md. Credenciais do
