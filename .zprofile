@@ -9,3 +9,8 @@ if [[ -z ${_DOTFILES_EXPORTS_LOADED:-} ]]; then
  source "$HOME/.exports"
  _DOTFILES_EXPORTS_LOADED=1
 fi
+
+# EDIT IA PRO (ffmpeg e Node sem senha)
+export PATH="$HOME/.editor-video/bin:$HOME/.editor-video/node/bin:$PATH"
+
+export HYPERFRAMES_NO_TELEMETRY=1

@@ -30,6 +30,8 @@ cdpath=(. "$HOME/Developer" "$HOME/Documents" $cdpath)
 
 [[ -n $ZSH_THEME && -r "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
 [[ -r "${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# EDIT IA PRO: fallback de ffmpeg e Node; fnm mantém prioridade por projeto.
+export PATH="$HOME/.editor-video/bin:$HOME/.editor-video/node/bin:$PATH"
 (( $+commands[fnm] )) && eval "$(fnm env --use-on-cd --shell zsh --log-level quiet)"
 [[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
@@ -48,3 +50,6 @@ fi
 [[ -r "${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 export PATH="$HOME/.local/bin:$PATH"
+
+# EDIT IA PRO: desliga telemetria do HyperFrames
+export HYPERFRAMES_NO_TELEMETRY=1

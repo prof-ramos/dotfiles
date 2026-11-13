@@ -3,16 +3,15 @@
 `python3 scripts/macos-preferences.py diff` compara somente as chaves declaradas.
 `apply` salva valores anteriores (inclusive ausência) antes de aplicar;
 `restore --journal PATH` desfaz, recusando mudanças posteriores conflitantes.
-O Dock usa tamanho 76 e preserva a ordem declarada de dez apps fixados, sem recentes.
+O Dock usa tamanho 80, efeito de minimização `scale` e preserva Ghostty e ego lite fixados nessa ordem, sem recentes.
+O perfil também declara `AppleFontSmoothing=1` (nitidez de fontes para o monitor externo QHD 2560×1440 não-Retina), ocultação de widgets na Mesa e no Stage Manager (`StandardHideWidgets=true`, `StageHideWidgets=true`) e desativação do Receptor AirPlay (`AirplayRecieverEnabled=false`).
 O perfil registra somente caminhos dos aplicativos; bookmarks, identificadores e
 datas internos do Dock ficam nos backups privados e não entram no Git. A comparação
 confere aplicativos e ordem, ignorando esses metadados regenerados pelo macOS.
 Algumas preferências passam a valer após reabrir o app ou iniciar nova sessão.
 
-Para reproduzir a lista do Dock, instale antes Ghostty, WhatsApp, ego lite,
-Sublime Text, Grok Bot, ChatGPT, Obsidian, Tailscale, Telegram e Cursor nos caminhos
-de `macos/preferences/defaults.json`. Nem todos fazem parte do núcleo ou dos
-módulos disponíveis: apps próprios e externos precisam de instalação separada.
+Para reproduzir a lista do Dock, instale antes Ghostty e ego lite nos caminhos
+de `macos/preferences/defaults.json`. O ego lite precisa de instalação separada.
 Um caminho ausente não instala o aplicativo e pode não produzir um ícone utilizável.
 
 `swift scripts/apply-folder-icons.swift --map macos/folder-icons.json --home "$HOME"`
