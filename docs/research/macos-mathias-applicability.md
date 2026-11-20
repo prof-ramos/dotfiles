@@ -2,9 +2,15 @@
 
 Pesquisa em 20/10/2026. Escopo: MacBook Air de 13 polegadas (2024), uso em português, Sublime Text, Ghostty, Raycast e Magnet. **Nenhuma preferência foi aplicada.** Recomendações abaixo são julgamento para esse contexto, não resultados de testes das chaves no computador.
 
+Os valores e as recomendações deste levantamento são históricos. O perfil
+versionado em 13/11/2026 passou a declarar Dock de tamanho 80 com Ghostty e ego
+lite fixados, efeito `scale` e `AppleFontSmoothing=1`; o atalho do terminal rápido
+do Ghostty é agora Control+crase. Consulte o [perfil atual](../macos.md) para
+reprodução e os limites de validação.
+
 Fonte histórica fixa: [`.macos` no commit b7c7894](https://github.com/mathiasbynens/dotfiles/blob/b7c7894e7bb2de5d60bfb9a2f5e46d01a61300ea/.macos). “Ativo” significa comando não comentado nessa fonte; não significa que ainda funcione no macOS instalado. A Apple documenta recursos e interfaces, mas não garante as chaves `defaults` internas usadas pelo script. Migrar uma chave exige verificar leitura, efeito e reversão na versão local; um `defaults write` bem-sucedido apenas demonstra que a preferência foi gravada.
 
-A auditoria principal confirmou Mac15,12, Apple M3 e 8 GB. O monitor principal atual é CQ32G4, 2560×1440 configurado a 60 Hz (via HDMI, para dobrar o orçamento de renderização de 8,33 ms para 16,67 ms no WindowServer em 8 GB de memória unificada); portanto, o uso atual também envolve tela externa, não apenas a tela interna de 13 polegadas. O Dock local está à direita com tamanho 52; o perfil declarativo mostra 68, divergência a registrar sem corrigir neste levantamento. A Mesa atual usa ícones 64, grade 54, rótulos abaixo e sem organização automática; não há razão demonstrada para impor 80/100. Não há valores explícitos de usuário para repetição, press-and-hold ou autohide: ausência não prova o comportamento efetivo. Esses dados foram fornecidos pela inspeção local da auditoria principal, não pela documentação pública.
+A auditoria principal registrou Mac15,12, Apple M3 e 8 GB. A atualização de 13/11/2026 registrou o monitor CQ32G4 em 2560×1440 a 60 Hz via HDMI, sem medição documentada de desempenho do WindowServer. No levantamento inicial, o Dock local estava à direita com tamanho 52 e o perfil declarativo mostrava 68, divergência que não foi corrigida naquela ocasião. A Mesa usava ícones 64, grade 54, rótulos abaixo e sem organização automática; não havia razão demonstrada para impor 80/100. Não foram encontrados valores explícitos de usuário para repetição, press-and-hold ou autohide: ausência não prova o comportamento efetivo. Esses dados foram fornecidos pela inspeção local da auditoria principal, não pela documentação pública.
 
 O perfil novo já contempla tema escuro, Finder em lista/com caminho, Dock sem fixados/recentes, ordem estável dos Spaces, canto com Quick Note, comportamento de clique do trackpad e `.DS_Store`. Isso é contexto fornecido para esta pesquisa; a comparação com os valores reais locais pertence à auditoria principal.
 

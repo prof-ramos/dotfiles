@@ -41,7 +41,7 @@ capturado então declarava 68. A divergência não foi sobrescrita nessa ocasiã
 A comparação está em docs/research/macos-mathias-applicability.md.
 O CI do commit de conclusão passou: https://github.com/prof-ramos/dotfiles/actions/runs/39364296143.
 
-## Sincronização com o Mac em 26/10/2026
+## Sincronização com o Mac em 26/10/2026, atualizada em 13/11/2026
 
 Após a conferência de 13/11/2026, o perfil reflete o Dock atual: tamanho 80,
 Ghostty e ego lite fixados nessa ordem, sem copiar metadados privados. As associações atuais são Obsidian

@@ -41,15 +41,19 @@ cursor-style-blink = true
 window-padding-x = 8
 window-padding-y = 6
 window-padding-balance = true
-macos-titlebar-style = tabs
+# Barra do sistema separa visualmente abas e conteúdo (novas janelas).
+macos-titlebar-style = native
 macos-option-as-alt = left
 
 # ─── Aparência ────────────────────────────────────────────────────────────────
 background-opacity = 1
 background-blur-radius = 0
-unfocused-split-opacity = 0.9
+# Divisórias claras e fundo distinto para identificar o painel ativo.
+split-divider-color = #7B9B9F
+unfocused-split-opacity = 0.8
+unfocused-split-fill = #2B3040
 
-# NOTA: macos-titlebar-style = tabs usa abas nativas do macOS.
+# NOTA: preservar fullscreen nativo do macOS para manter abas agrupadas.
 # NÃO ativar macos-non-native-fullscreen — quebra as abas em fullscreen
 # (o Ghostty separa a aba focada em fullscreen e joga as outras numa janela à parte).
 
