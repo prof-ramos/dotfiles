@@ -21,6 +21,13 @@ Sublime Text é EDITOR/VISUAL com espera (`subl -w`). Git usa identidade local e
 ~/.gitconfig.local. Autenticações são manuais; senhas e chaves privadas não entram no Git.
 Validação: `python3 -m unittest discover -s tests -v`.
 
+O shell inclui `~/.editor-video/bin` e `~/.editor-video/node/bin` no PATH;
+esses binários privados precisam ser recuperados ou instalados separadamente.
+No Zsh interativo, esses caminhos entram antes da inicialização do `fnm`
+(módulo `development`), permitindo que o Node selecionado pelo projeto tenha
+prioridade. Sem `fnm`, o Node privado permanece como alternativa, se instalado.
+O shell também exporta `HYPERFRAMES_NO_TELEMETRY=1`.
+
 Listas opcionais: [apps](docs/apps.md). Personalização: [macOS](docs/macos.md).
 Migração e retorno: [migração](docs/migration.md), [backups](docs/restore.md).
 Fontes e licença: [créditos](docs/attribution.md).
