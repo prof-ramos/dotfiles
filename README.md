@@ -52,6 +52,8 @@ Diferenças retornam código 1 para serem revisadas, não são corrigidas automa
 persistência; `apply` também recarrega o Dock quando modifica suas preferências.
 
 Workspace: `./scripts/workspace.sh sublime` ou `./scripts/workspace.sh codex`.
+Instalação e verificação da memória dos agentes: [ai-memory](docs/ai-memory.md).
+
 Instalação de skills com dependências: veja [fluxo de agentes](docs/agents/workflow.md).
 
 Validação de arquivos em home temporário: [procedimento e limites](docs/research/isolated-links-validation.md).

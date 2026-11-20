@@ -6,6 +6,11 @@
 - Before applying or restoring: `docs/restore.md` and `docs/macos.md`.
 - Optional apps: `docs/apps.md`. Proposed macOS changes: `docs/research/`.
 
+## Memória dos agentes de código
+
+Para conectar os clientes ao servidor na tailnet, siga [a instalação e os
+testes do ai-memory](docs/ai-memory.md). Mantenha o token fora do Git.
+
 ## Agent skills
 
 ### Issue tracker
